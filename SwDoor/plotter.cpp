@@ -9,27 +9,27 @@
 
 Plotter::Plotter(QWidget *parent) :
     QWidget(parent),
-    tlim (100),
-    noise(5),
-    E(8)
+    tlim_ (100),
+    noise_(5),
+    E_(8)
 {
 }
 
 void Plotter::noiseChanged(int v)
 {
-   noise = v;
+   noise_ = v;
    repaint();
 }
 
 void Plotter::tlimChanged(int v)
 {
-   tlim = v;
+   tlim_ = v;
    repaint();
 }
 
 void Plotter::EChanged(double v)
 {
-   E = v;
+   E_ = v;
    repaint();
 }
 
@@ -79,7 +79,7 @@ void Plotter::doPaint(QPainter &painter)
     QPainterPath path_res;
 
     //////////////////////////////////
-    SwDoor door(E, tlim);
+    SwDoor door(E_, tlim_);
     //////////////////////////////////
 
     //for rand()
@@ -94,7 +94,7 @@ void Plotter::doPaint(QPainter &painter)
     float count = 0;
 
     for (float i=sig_step; i<sig_end; i+=sig_step) {
-        int k = randInt(noise,-1*noise);
+        int k = randInt(noise_,-1*noise_);
 
         //drawing signal
         p_sign.setX(count++);

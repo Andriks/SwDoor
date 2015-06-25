@@ -18,12 +18,12 @@ public slots:
    void EChanged(double);
 
 protected:
-   void paintEvent( QPaintEvent * event ) ;
-   void doPaint(QPainter &p);
+   void paintEvent( QPaintEvent*) ;
+   void doPaint(QPainter&);
 
-   int noise;
-   int tlim;
-   double E;
+   int noise_;
+   int tlim_;
+   double E_;
 
 };
 

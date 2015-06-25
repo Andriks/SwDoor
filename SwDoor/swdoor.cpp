@@ -2,21 +2,21 @@
 
 
 SwDoor::SwDoor(float inp_E, int inp_tlim):
-    E(inp_E),
-    tlim(inp_tlim),
-    t(0),
-    door_ready(false),
-    store_p_changed(false)
+    E_(inp_E),
+    tlim_(inp_tlim),
+    t_(0),
+    door_ready_(false),
+    store_p_changed_(false)
 {
 }
 
 void SwDoor::hadlePoint(QPointF inp_p)
 {
-    store_p_changed = false;
+    store_p_changed_ = false;
 
-    if (!door_ready) {
+    if (!door_ready_) {
         storePoint(inp_p);
-        P = inp_p;  // to start working
+        P_ = inp_p;  // to start working
 
         return;
     }
@@ -26,38 +26,38 @@ void SwDoor::hadlePoint(QPointF inp_p)
 
 QPointF SwDoor::getLastStoredPoint() const
 {
-    return store_p;
+    return store_p_;
 }
 
 bool SwDoor::storePointChanged() const
 {
-    return store_p_changed;
+    return store_p_changed_;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
 void SwDoor::parsePointInfo(QPointF &inp_p) {
-    State state = point_location(inp_p);
+    State state = pointLocation(inp_p);
 
     // we are storing prev point to prevent losing of info and to have all info for normal working (stored and next after stored points)
     switch (state){
         case CHANGE: {
-            if( !move_door_line(inp_p, L) || !move_door_line(inp_p, U) )
-                setNewStoredPoint(prev_p, inp_p);
+            if( !moveDoorLine(inp_p, L_) || !moveDoorLine(inp_p, U_) )
+                setNewStoredPoint(prev_p_, inp_p);
 
             break;
             }
         case L_CHANGE:
             {
-            if( !move_door_line(inp_p, L) )
-                setNewStoredPoint(prev_p, inp_p);
+            if( !moveDoorLine(inp_p, L_) )
+                setNewStoredPoint(prev_p_, inp_p);
 
                 break;
             }
         case U_CHANGE:
             {
-            if( !move_door_line(inp_p, U) )
-                setNewStoredPoint(prev_p, inp_p);
+            if( !moveDoorLine(inp_p, U_) )
+                setNewStoredPoint(prev_p_, inp_p);
 
                 break;
             }
@@ -67,38 +67,38 @@ void SwDoor::parsePointInfo(QPointF &inp_p) {
             }
 
     }
-    prev_p = inp_p;
+    prev_p_ = inp_p;
 
     //mechanism of storing points after some number of inputs even if door was closed
-    if (t++ >= tlim) setNewStoredPoint(prev_p, inp_p);
+    if (t_++ >= tlim_) setNewStoredPoint(prev_p_, inp_p);
 }
 
 void SwDoor::setNewStoredPoint(QPointF &inp_p, QPointF &next_p) {
     storePoint(inp_p);
-    P = next_p;
+    P_ = next_p;
 
-    calc_coef(P, U);
-    calc_coef(P, L);
+    calcCoef(P_, U_);
+    calcCoef(P_, L_);
 }
 
 
 void SwDoor::storePoint(QPointF &inp_p)
 {
-    L.setX(inp_p.x()); L.setY(inp_p.y() - E);
-    U.setX(inp_p.x()); U.setY(inp_p.y() + E);
+    L_.setX(inp_p.x()); L_.setY(inp_p.y() - E_);
+    U_.setX(inp_p.x()); U_.setY(inp_p.y() + E_);
 
-    store_p = inp_p;
-    prev_p = inp_p;
-    door_ready = true;
-    store_p_changed = true;
+    store_p_ = inp_p;
+    prev_p_ = inp_p;
+    door_ready_ = true;
+    store_p_changed_ = true;
 
-    t = 0;
+    t_ = 0;
 }
 
-SwDoor::State SwDoor::point_location(QPointF &p) {
-    Orient stLU = classify_location(L, U, p);
-    Orient stL  = classify_location(L, P, p);
-    Orient stU  = classify_location(U, P, p);
+SwDoor::State SwDoor::pointLocation(QPointF &p) {
+    Orient stLU = classifyLocation(L_, U_, p);
+    Orient stL  = classifyLocation(L_, P_, p);
+    Orient stU  = classifyLocation(U_, P_, p);
 
     if (stLU == ONLINE && stL == ONLINE && stU == ONLINE)
         return INSIDE;
@@ -113,7 +113,7 @@ SwDoor::State SwDoor::point_location(QPointF &p) {
 }
 
 
-SwDoor::Orient SwDoor::classify_location(QPointF &p0, QPointF &p1, QPointF &p) const
+SwDoor::Orient SwDoor::classifyLocation(QPointF &p0, QPointF &p1, QPointF &p) const
 {
   QPointF p2 = p;
   QPointF a = p1 - p0;
@@ -126,16 +126,16 @@ SwDoor::Orient SwDoor::classify_location(QPointF &p0, QPointF &p1, QPointF &p) c
   return ONLINE;
 }
 
-void SwDoor::calc_coef(const QPointF &p, const QPointF &ul)
+void SwDoor::calcCoef(const QPointF &p, const QPointF &ul)
 {
-    if (ul == U) {
-        UA = U.y() - p.y();
-        UB = p.x() - U.x();
-        UC = -(U.x()*p.y() - p.x()*U.y());  //for cramer method
-    } else if (ul == L) {
-        LA = L.y() - p.y();
-        LB = p.x() - L.x();
-        LC = -(L.x()*p.y() - p.x()*L.y());  //for cramer method
+    if (ul == U_) {
+        UA_ = U_.y() - p.y();
+        UB_ = p.x() - U_.x();
+        UC_ = -(U_.x()*p.y() - p.x()*U_.y());  //for cramer method
+    } else if (ul == L_) {
+        LA_ = L_.y() - p.y();
+        LB_ = p.x() - L_.x();
+        LC_ = -(L_.x()*p.y() - p.x()*L_.y());  //for cramer method
     }
 }
 
@@ -143,9 +143,9 @@ float SwDoor::det(float a, float b, float c, float d) const {
     return a * d - b * c;
 }
 
-bool SwDoor::move_door_line(QPointF &p, QPointF &what_moving)
+bool SwDoor::moveDoorLine(QPointF &p, QPointF &what_moving)
 {
-    calc_coef(p, what_moving);
+    calcCoef(p, what_moving);
     if (setP())
         return true;
     else
@@ -155,17 +155,17 @@ bool SwDoor::move_door_line(QPointF &p, QPointF &what_moving)
 bool SwDoor::setP() {
     // new point, if U L are parallel or P in back - false
 
-    float delta  = det(LA, LB, UA, UB);
+    float delta  = det(LA_, LB_, UA_, UB_);
     if (delta == 0) return false;
 
-    float deltax = det(LC, LB, UC, UB);
-    float deltay = det(LA, LC, UA, UC);
+    float deltax = det(LC_, LB_, UC_, UB_);
+    float deltay = det(LA_, LC_, UA_, UC_);
 
     float x = deltax/delta;
     float y = deltay/delta;
 
-    if (x > P.x()) {
-        P.setX(x); P.setY(y);
+    if (x > P_.x()) {
+        P_.setX(x); P_.setY(y);
         return true;
     } else
         return false;
