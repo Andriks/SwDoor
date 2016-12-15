@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="4">
-     <widget class="QSpinBox" name="_noise">
+     <widget class="QSpinBox" name="scrollNoise">
       <property name="value">
        <number>5</number>
       </property>
@@ -37,7 +37,7 @@
      </widget>
     </item>
     <item row="0" column="2">
-     <widget class="QDoubleSpinBox" name="_E">
+     <widget class="QDoubleSpinBox" name="scrollE">
       <property name="singleStep">
        <double>0.500000000000000</double>
       </property>
@@ -54,7 +54,7 @@
      </widget>
     </item>
     <item row="0" column="6">
-     <widget class="QSpinBox" name="_tlim">
+     <widget class="QSpinBox" name="scrollTlim">
       <property name="minimum">
        <number>1</number>
       </property>

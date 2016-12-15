@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     plotter = new Plotter(this);
     ui->scrollArea->setWidget(plotter);
 
-    connect( ui->_noise,SIGNAL(valueChanged(int)),plotter,SLOT(noiseChanged(int)));
-    connect( ui->_tlim,SIGNAL(valueChanged(int)),plotter,SLOT(tlimChanged(int)));
-    connect( ui->_E,SIGNAL(valueChanged(double)),plotter,SLOT(EChanged(double)));
-    connect( ui->btnUpdateSignal,SIGNAL(pressed()), plotter,SLOT(updateSignal()));
+    connect( ui->scrollE,         SIGNAL(valueChanged(double)), plotter, SLOT(EChanged(double))  );
+    connect( ui->scrollNoise,     SIGNAL(valueChanged(int)),    plotter, SLOT(noiseChanged(int)) );
+    connect( ui->scrollTlim,      SIGNAL(valueChanged(int)),    plotter, SLOT(tlimChanged(int))  );
+    connect( ui->btnUpdateSignal, SIGNAL(pressed()),            plotter, SLOT(updateSignal())    );
 
 }
 
