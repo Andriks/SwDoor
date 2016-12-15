@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( ui->_noise,SIGNAL(valueChanged(int)),plotter,SLOT(noiseChanged(int)));
     connect( ui->_tlim,SIGNAL(valueChanged(int)),plotter,SLOT(tlimChanged(int)));
     connect( ui->_E,SIGNAL(valueChanged(double)),plotter,SLOT(EChanged(double)));
+    connect( ui->btnUpdateSignal,SIGNAL(pressed()), plotter,SLOT(updateSignal()));
 
 }
 

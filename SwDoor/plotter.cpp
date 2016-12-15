@@ -33,6 +33,11 @@ void Plotter::EChanged(double v)
    repaint();
 }
 
+void Plotter::updateSignal()
+{
+    repaint();
+}
+
 int randInt(int low, int high)
 {
     return qrand() % ((high + 1) - low) + low;

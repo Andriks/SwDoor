@@ -69,24 +69,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="8">
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>832</width>
-         <height>366</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-    </item>
-    <item row="0" column="7">
+    <item row="0" column="8">
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -99,6 +82,37 @@
       </property>
      </spacer>
     </item>
+    <item row="0" column="7">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>(max time without fixed data points)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="9">
+     <widget class="QPushButton" name="btnUpdateSignal">
+      <property name="text">
+       <string>Update Signal</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="10">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>836</width>
+         <height>375</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -107,7 +121,7 @@
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

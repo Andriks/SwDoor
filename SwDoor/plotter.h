@@ -16,6 +16,7 @@ public slots:
    void noiseChanged(int);
    void tlimChanged(int);
    void EChanged(double);
+   void updateSignal();
 
 protected:
    void paintEvent( QPaintEvent*) ;
