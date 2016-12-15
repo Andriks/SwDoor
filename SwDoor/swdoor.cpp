@@ -1,13 +1,18 @@
 ﻿#include "swdoor.h"
 
 
-SwDoor::SwDoor(float inp_E, int inp_tlim):
-    E_(inp_E),
-    tlim_(inp_tlim),
+SwDoor::SwDoor():
     t_(0),
     door_ready_(false),
     store_p_changed_(false)
 {
+}
+
+void SwDoor::setMainData(float e, int tlim)
+{
+    setE(e);
+    setTlim(tlim);
+    backToInitState();
 }
 
 void SwDoor::hadlePoint(QPointF inp_p)
@@ -27,6 +32,27 @@ void SwDoor::hadlePoint(QPointF inp_p)
 QPointF SwDoor::getLastStoredPoint() const
 {
     return store_p_;
+}
+
+void SwDoor::setE(float e)
+{
+    if (e != E_) {
+        E_ = e;
+    }
+}
+
+void SwDoor::setTlim(int tlim)
+{
+    if (tlim != tlim_) {
+        tlim_ = tlim;
+    }
+}
+
+void SwDoor::backToInitState()
+{
+    t_ = 0;
+    door_ready_ = false;
+    store_p_changed_ = false;
 }
 
 bool SwDoor::storePointChanged() const

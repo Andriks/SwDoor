@@ -1,6 +1,8 @@
 ﻿#ifndef PLOTTER_H
 #define PLOTTER_H
 
+#include "swdoor.h"
+
 #include <QWidget>
 #include <QPainter>
 
@@ -22,6 +24,7 @@ protected:
    void paintEvent( QPaintEvent*) ;
    void doPaint(QPainter&);
 
+   SwDoor door_;
    int noise_;
    int tlim_;
    double E_;

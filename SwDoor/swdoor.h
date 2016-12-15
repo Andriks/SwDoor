@@ -11,7 +11,9 @@ private:
     enum State {INSIDE, L_CHANGE, U_CHANGE, CHANGE};
 
 public:
-    SwDoor(float, int);
+    SwDoor();
+
+    void setMainData(float e, int tlim);
 
     //hatdling and store (if needs) new input point
     void hadlePoint(QPointF);
@@ -20,6 +22,10 @@ public:
     QPointF getLastStoredPoint() const;
 
 private:
+    void setE(float e);
+    void setTlim(int tlim);
+    void backToInitState();
+
     void setNewStoredPoint(QPointF&, QPointF&);
     void parsePointInfo(QPointF&);
     //save all params relatively new stored point

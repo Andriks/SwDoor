@@ -1,5 +1,4 @@
 ﻿#include "plotter.h"
-#include "swdoor.h"
 
 #include <QtCore/qmath.h>
 #include <QPainterPath>
@@ -84,7 +83,7 @@ void Plotter::doPaint(QPainter &painter)
     QPainterPath path_res;
 
     //////////////////////////////////
-    SwDoor door(E_, tlim_);
+    door_.setMainData(E_, tlim_);
     //////////////////////////////////
 
     //for rand()
@@ -106,10 +105,10 @@ void Plotter::doPaint(QPainter &painter)
         p_sign.setY(MyFunc(i)+k);
         path_sign.lineTo(p_sign);
 
-        door.hadlePoint(p_sign);
-        if (door.storePointChanged()) {
-            path_res.lineTo(door.getLastStoredPoint());
-            painter.drawPoint(door.getLastStoredPoint());
+        door_.hadlePoint(p_sign);
+        if (door_.storePointChanged()) {
+            path_res.lineTo(door_.getLastStoredPoint());
+            painter.drawPoint(door_.getLastStoredPoint());
         }
     }
 
